@@ -44,8 +44,9 @@
   </select>
     <textarea id = "qdesc" name = "qdesc" placeholder = "Enter Question "></textarea>
 	<textarea id = "qans" name = "qans" placeholder = "Field Answer"></textarea>
- <input type="submit" value="Add Entry" id = "send" />
- 
+ <input type="submit" value="Add/Update" id = "send" />
+  <input type="submit" value="Search " id = "search" />
+<input type = "hidden" name = "rdbtn_check" id = "rdbtn_check" />
   </form>
 </div>
 <script>
@@ -58,7 +59,16 @@ $(document).ready(function(){
    alert(jsonobj.message);   
     });
   return false;
-  })
+  });
+  $('#radio1').on("click",function(){$('#rdbtn_check').val("1");});
+  $('#radio2').on("click",function(){$('#rdbtn_check').val("2");});
+   $('#search').click(function(){
+  //alert('I love Halima');
+  $.post('search.php',$('#form1').serialize(),function(result){
+   $('#qans').val(result);   
+    });
+  return false;
+  });
   });
 </script>
 </body>
