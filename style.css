@@ -110,3 +110,19 @@ select
 {
 color:#4D4D4D;
 }
+#operations
+{
+margin-bottom:10px;
+
+}
+#operations input[type = "radio"]
+{
+margin-left:20px;
+}
+#operations span
+{
+font: 16px Arial, Helvetica, sans-serif;
+color:#4D4D4D;
+}
+
+

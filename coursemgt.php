@@ -6,33 +6,29 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Class Registration Portal</title>
+  <title>QA Management Portal Portal</title>
   <script type = "text/javascript" src = "jquery.js"></script>
  <link rel="stylesheet" href="style.css">
   <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
 <body>
 <ul class = "navbar">
-<li class = "hide"><a href = "#">Venue</a></li>
-<li class = "hide"><a href = "#">Class</a></li>
-<li class = "hide"><a href = "#">User </a></li>
-<li class = "hide"><a href = "#">Registration</a></li>
-<li><a href = "default.php">#</a></li>
+<li class = "hide"><a href = "qamgt.php">QAManagement</a></li>
+<li class = "hide"><a href = "coursemgt.php">Course Management</a></li>
+<li><a href = "default.php">SignOut</a></li>
 </ul>
 <div class="form-style-8">
-  <h2>QUESTION MANAGEMENT</h2>
+  <h2>COURSE MANAGEMENT</h2>
   <form id = "form1" method = "post" action = "">
-  <select>
-  <option>Select Course</option>
-  </select>
-    <input type="text" name="uid" placeholder="UserId" />
- <input type="text" name="mname" placeholder="Full Name" />
-  <input type="text" name="emp" placeholder="Employer" />
- <input type="text" name="unit" placeholder="Department" />
- <input type="text" name="date" placeholder="Registration Date" />
- <input type="text" name="uname" placeholder="LoginId" />
-<input type="text" name="pass" placeholder="Password" />
- <input type="submit" value="Add User" id = "send" />
+  <div id = "operations">
+  <input type = "radio" name = "optype" id = "radio1"><span>Add New Course</span>
+  <input type = "radio" name = "optype" id = "radio2"><span>Modify Existing Course</span>
+  </div>
+  
+ <input type="text" name="mcode" placeholder = "Course Code" />
+ <input type="text" name="mname" placeholder="Course Description" />
+ <input type="submit" value="Add Entry" id = "send" />
+ 
   </form>
 </div>
 <script>
@@ -41,7 +37,8 @@ $(document).ready(function(){
   $('#send').click(function(){
   //alert('I love Halima');
   $.post('datamgt.php',$('#form1').serialize(),function(result){
-   alert(result);   
+   var jsonobj = $.parseJSON(result);
+   alert(jsonobj[0]["message"]);   
   });
   return false;
   })
