@@ -46,6 +46,7 @@
 	<textarea id = "qans" name = "qans" placeholder = "Field Answer"></textarea>
  <input type="submit" value="Add/Update" id = "send" />
   <input type="submit" value="Search " id = "search" />
+  <input type="submit" value="Purge " id = "del" />
 <input type = "hidden" name = "rdbtn_check" id = "rdbtn_check" />
   </form>
 </div>
@@ -66,6 +67,14 @@ $(document).ready(function(){
   //alert('I love Halima');
   $.post('search.php',$('#form1').serialize(),function(result){
    $('#qans').val(result);   
+    });
+  return false;
+  });
+  $('#del').click(function(){
+  //alert('I love Halima');
+  $.post('delEntry.php',$('#form1').serialize(),function(result){
+   var jsonobj = JSON.parse(result);
+   alert(jsonobj.message);   
     });
   return false;
   });

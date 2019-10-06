@@ -24,24 +24,34 @@
   <input type = "radio" name = "optype" id = "radio1"><span>Add New Course</span>
   <input type = "radio" name = "optype" id = "radio2"><span>Modify Existing Course</span>
   </div>
-  
  <input type="text" name="mcode" placeholder = "Course Code" />
- <input type="text" name="mname" placeholder="Course Description" />
- <input type="submit" value="Add Entry" id = "send" />
- 
-  </form>
+ <input type="text" name="mdesc" placeholder="Course Description" />
+ <input type="submit" value="Add/Update" id = "send" />
+  <input type="submit" value="Delete" id = "del" />
+<input type = "hidden" name = "rdbtn_check" id = "rdbtn_check" />
+</form>
 </div>
 <script>
 $(document).ready(function(){
    //
   $('#send').click(function(){
   //alert('I love Halima');
-  $.post('datamgt.php',$('#form1').serialize(),function(result){
-   var jsonobj = $.parseJSON(result);
-   alert(jsonobj[0]["message"]);   
+  $.post('addEntry.php',$('#form1').serialize(),function(result){
+   var jsonobj = JSON.parse(result);
+   alert(jsonobj.message);   
   });
   return false;
-  })
+  });
+  $('#radio1').on("click",function(){$('#rdbtn_check').val("1");});
+  $('#radio2').on("click",function(){$('#rdbtn_check').val("2");});
+  $('#del').click(function(){
+  //alert('I love Halima');
+  $.post('delEntry.php',$('#form1').serialize(),function(result){
+   var jsonobj = JSON.parse(result);
+   alert(jsonobj.message);   
+  });
+  return false;
+  });
   });
 </script>
 </body>
