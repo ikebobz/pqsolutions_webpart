@@ -5,16 +5,17 @@ $credentials = array();
 $response = array();
 //Check for mandatory parameter fields
 	//Query to fetch question details
-if(isset($_POST['email']) && isset($_POST['pass']))
+if(isset($_GET['email']))
 {
-	$query = "SELECT email,passphrase from users where email = ? and passphrase = ?";
+	$query = "SELECT email,passphrase from users where email =?";
 	if($stmt = $con->prepare($query)){
 		//Bind  parameters to the query
-		$stmt->bind_param("ss",$_POST['email'],$_POST['pass']);
+		$stmt->bind_param("s",$_GET['email']);
 		$stmt->execute();
-		if($stmt->rowCount()>0){
+		
 		//Bind fetched result to variables
 		$stmt->bind_result($email,$pass);
+	
 		//Check for results		
 		while($stmt->fetch())
 	{
@@ -25,13 +26,8 @@ if(isset($_POST['email']) && isset($_POST['pass']))
 		$stmt->close();
 		$response['success'] = 1;
 		$response['data'] = $credentials;
-	}
-		else
-	{
-	    $stmt->close();
-		$response['success'] = 0;
-		$response['message'] = "user not found";
-	}
+	
+	
  
 	}else{
 		//Whe some error occurs

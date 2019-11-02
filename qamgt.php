@@ -44,9 +44,19 @@
   </select>
     <textarea id = "qdesc" name = "qdesc" placeholder = "Enter Question "></textarea>
 	<textarea id = "qans" name = "qans" placeholder = "Field Answer"></textarea>
- <input type="submit" value="Add/Update" id = "send" />
+  <h3 style = "text-align:left">Table data if any for Question</h3>
+	<textarea id = "numofrow" name = "numofrow" placeholder = "Please specify number of table rows"></textarea>
+	<textarea id = "numofcol" name = "numofcol" placeholder = "Please specify number of table columns" ></textarea>
+	<textarea id = "content" name = "content" placeholder = "Please specify cell contents delimited by a comma"></textarea>
+<input type="submit" value="Add/Update" id = "send" />
   <input type="submit" value="Search " id = "search" />
   <input type="submit" value="Purge " id = "del" />
+  	<h3 style = "text-align:left">Get Question UID</h3>
+    <input type = "text" id = "qfrag" name = "qfrag" placeholder = "Please type in Question Part" />
+	<textarea id = "result" name = "result" placeholder = "" readonly></textarea>
+    <input type = "text" id = "quid" name = "quid" placeholder = "" readonly />
+  <input type="submit" value="Next" id = "Scroll" />
+    <input type="submit" value="Edit " id = "edit" />
 <input type = "hidden" name = "rdbtn_check" id = "rdbtn_check" />
   </form>
 </div>
@@ -66,8 +76,10 @@ $(document).ready(function(){
    $('#search').click(function(){
   //alert('I love Halima');
   $.post('search.php',$('#form1').serialize(),function(result){
-   $('#qans').val(result);   
-    });
+	  alert(result);
+    //var jsobj = JSON.parse(result);
+	//alert(jsobj.data);
+	});
   return false;
   });
   $('#del').click(function(){

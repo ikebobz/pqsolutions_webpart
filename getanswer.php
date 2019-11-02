@@ -4,21 +4,24 @@ $answers = array();
 $result = array();
 $response = array();
 //Check for mandatory parameter fields
-if(isset($_GET['qdesc']) && isset($_POST['course'])){
+if(isset($_GET['qdesc']) && isset($_GET['course'])){
 	$qdesc = $_GET['qdesc'];
 	$course = $_GET['course'];
 	//Query to fetch question details
-	$query = "SELECT answer from qahistory where course=? AND description like ?";
+	$query = "SELECT qid,course,description,answer from qahistory where course=? AND description like ?";
 	if($stmt = $con->prepare($query)){
 		//Bind  parameters to the query
 		$stmt->bind_param("ss",$course,$qdesc);
 		$stmt->execute();
 		//Bind fetched result to variables
-		$stmt->bind_result($answer);
+		$stmt->bind_result($qid,$course,$description,$answer);
 		//Check for results		
 		while($stmt->fetch())
 	{
-	  $solution['description']= $answer;
+	  $solution['qid']= $qid;
+	  $solution['course']= $course;
+	  $solution['description']= $description;
+	  $solution['answer']= $answer;
 	  $result[] = $solution;
 	}
 		$stmt->close();
@@ -31,8 +34,9 @@ if(isset($_GET['qdesc']) && isset($_POST['course'])){
 		$response["message"] = mysqli_error($con);
 		
 	}
- 
-}else{
+ }
+else
+{
 	//When the mandatory parameters are missing
 	$response["success"] = 0;
 	$response["message"] = "missing parameter movie_id";
