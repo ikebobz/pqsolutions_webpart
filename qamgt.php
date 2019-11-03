@@ -61,6 +61,9 @@
   </form>
 </div>
 <script>
+var hits = "";
+index =0;
+arraysize=0;
 $(document).ready(function(){
    //
   $('#send').click(function(){
@@ -76,9 +79,15 @@ $(document).ready(function(){
   $('#search').click(function(){
   //alert('I love Halima');
   $.post('search.php',$('#form1').serialize(),function(result){
-	  //alert(result);
+	//alert(result);
     var jsobj = JSON.parse(result);
-	alert(jsobj.success);
+	hits = jsobj.data;
+	arraysize = hits.length;
+	//var jobj = JSON.parse(hits[0]);
+	//alert(hits.length);
+	
+	//alert(hits[0]);
+	;
 	});
   return false;
   });
@@ -86,9 +95,12 @@ $(document).ready(function(){
   //alert('I love Halima');
   $.post('delEntry.php',$('#form1').serialize(),function(result){
    var jsonobj = JSON.parse(result);
-   alert(jsonobj.message);   
-    });
+   alert(jsonobj.message);
+ });
   return false;
+  });//end of event handler for delete button
+  $('#Scroll').click(function(){
+  // implement function here
   });
   });
 </script>
