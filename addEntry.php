@@ -41,7 +41,7 @@ $response["message"] = $e->getMessage();
  
 }
 
-else if(isset($_POST['qdesc'])&&isset($_POST['qans'])&&isset($_POST['course'])&&isset($_POST['rdbtn_check'])){
+if(isset($_POST['qdesc'])&&isset($_POST['qans'])&&isset($_POST['course'])&&isset($_POST['rdbtn_check'])){
 	$qdesc = $_POST['qdesc'];
 	$qans = $_POST['qans'];
 	$course = $_POST['course'];
@@ -78,7 +78,7 @@ else if(isset($_POST['qdesc'])&&isset($_POST['qans'])&&isset($_POST['course'])&&
  
 }
 
-else if(isset($_POST['mcode'])&&isset($_POST['mdesc'])&&isset($_POST['rdbtn_check']))
+ if(isset($_POST['mcode'])&&isset($_POST['mdesc'])&&isset($_POST['rdbtn_check']))
 {
     $mcode = $_POST['mcode'];
 	$mdesc = $_POST['mdesc'];
@@ -113,7 +113,7 @@ else if(isset($_POST['mcode'])&&isset($_POST['mdesc'])&&isset($_POST['rdbtn_chec
 		$response["message"] = mysqli_error($con);
 	}
 }
-else if(isset($_POST['names'])&&isset($_POST['email'])&&isset($_POST['pass']))
+if(isset($_POST['names'])&&isset($_POST['email'])&&isset($_POST['pass']))
 {
     $names = $_POST['names'];
 	$email = $_POST['email'];

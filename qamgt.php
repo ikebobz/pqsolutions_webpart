@@ -73,12 +73,12 @@ $(document).ready(function(){
   });
   $('#radio1').on("click",function(){$('#rdbtn_check').val("1");});
   $('#radio2').on("click",function(){$('#rdbtn_check').val("2");});
-   $('#search').click(function(){
+  $('#search').click(function(){
   //alert('I love Halima');
   $.post('search.php',$('#form1').serialize(),function(result){
-	  alert(result);
-    //var jsobj = JSON.parse(result);
-	//alert(jsobj.data);
+	  //alert(result);
+    var jsobj = JSON.parse(result);
+	alert(jsobj.success);
 	});
   return false;
   });

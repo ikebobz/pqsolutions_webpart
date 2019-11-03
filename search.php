@@ -13,23 +13,27 @@ if(isset($_POST['qdesc'])&&isset($_POST['course']))
  $stmt->close();
   }//end of if statement
 }
-  else if(isset($_POST['qfrag']) && isset($_POST['course']))
+if(isset($_POST['qfrag']) && isset($_POST['course']))
 {
-    $qfrag = $_POST['qfrag'];
+    //echo "hello guys";
+	$qfrag = $_POST['qfrag'];
 	$course = $_POST['course'];
 	$collection = array();
 	$response = array();
 	
 	//Query to insert a new user
-	$query = "select qid,answer from qahistory where description like ? and course =?";
+	$query = "select qid,answer from qahistory where description like ? and course = ?";
 	//Prepare the query
 	if($stmt = $con->prepare($query)){
 		//Bind parameters
+		//echo $stmt->error;
 		$stmt->bind_param("ss",$qfrag,$course);
 
 		//Exceting MySQL statemenct
 		$stmt->execute();
+		//echo $stmt->error;
 		$stmt->bind_result($qid,$answer);
+		//echo $stmt->error;
 		while($stmt->fetch())
 	{
 	$rset['qid'] = $qid;
@@ -47,6 +51,7 @@ if(isset($_POST['qdesc'])&&isset($_POST['course']))
 		$response["success"] = 0;
 		$response["message"] = mysqli_error($con);
 	}
-	echo jspn_encode($response);
+	echo json_encode($response);
+	
 }
 ?>
