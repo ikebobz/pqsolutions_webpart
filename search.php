@@ -22,7 +22,7 @@ if(isset($_POST['qfrag']) && isset($_POST['course']))
 	$response = array();
 	
 	//Query to insert a new user
-	$query = "select qid,answer from qahistory where description like ? and course = ?";
+	$query = "select qid,answer,description,rownum,colnum,content from qahistory left outer join tabledata on qahistory.qid=tabledata.owner where description like ? and course = ?";
 	//Prepare the query
 	if($stmt = $con->prepare($query)){
 		//Bind parameters
@@ -32,12 +32,16 @@ if(isset($_POST['qfrag']) && isset($_POST['course']))
 		//Exceting MySQL statemenct
 		$stmt->execute();
 		//echo $stmt->error;
-		$stmt->bind_result($qid,$answer);
+		$stmt->bind_result($qid,$answer,$description,$rownum,$colnum,$content);
 		//echo $stmt->error;
 		while($stmt->fetch())
 	{
 	$rset['qid'] = $qid;
 	$rset['answer'] = $answer;
+	$rset['description'] = $description;
+	$rset['rownum'] = $rownum;
+	$rset['colnum'] = $colnum;
+	$rset['content'] = $content;
 	$collection[] = $rset;
 	}// end of while statement
 	//echo $stmt->error;

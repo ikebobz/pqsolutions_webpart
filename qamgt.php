@@ -80,13 +80,18 @@ $(document).ready(function(){
   //alert('I love Halima');
   $.post('search.php',$('#form1').serialize(),function(result){
 	//alert(result);
+	index = 0;
+	arraysize = 0;
     var jsobj = JSON.parse(result);
 	hits = jsobj.data;
 	arraysize = hits.length;
-	//var jobj = JSON.parse(hits[0]);
-	//alert(hits.length);
-	
-	//alert(hits[0]);
+	alert(arraysize+" records returned");
+	$('#result').val(hits[index].answer);
+    $('#quid').val(hits[index].qid);
+	 $('#numofrow').val(hits[index].rownum);
+	 $('#numofcol').val(hits[index].colnum);
+	 $('#content').val(hits[index].content);
+	$('#qfrag').val(hits[index].description);
 	;
 	});
   return false;
@@ -100,7 +105,20 @@ $(document).ready(function(){
   return false;
   });//end of event handler for delete button
   $('#Scroll').click(function(){
-  // implement function here
+   if(index == arraysize-1) index=0; 
+   else index++;
+   $('#result').val(hits[index].answer);
+   $('#quid').val(hits[index].qid);
+   $('#qfrag').val(hits[index].description);
+   $('#numofrow').val(hits[index].rownum);
+	$('#numofcol').val(hits[index].colnum);
+	$('#content').val(hits[index].content);
+   return false;
+  });
+  $('#edit').click(function(){
+  $('#qdesc').val($('#qfrag').val());
+   $('#qans').val($('#result').val());
+    return false;
   });
   });
 </script>
